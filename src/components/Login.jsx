@@ -1,9 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = function () {
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     try {
@@ -16,7 +20,7 @@ const Login = function () {
         { withCredentials: true }
       );
 
-      console.log(res);
+      dispatch(addUser(res.data.data));
     } catch (err) {
       console.log(err);
     }
@@ -28,7 +32,7 @@ const Login = function () {
         <div className="card-body">
           <h2 className="card-title justify-center">Login</h2>
           <fieldset className="fieldset">
-            <legend className="fieldset-legend">Email {emailId}</legend>
+            <legend className="fieldset-legend">Email</legend>
             <input
               type="text"
               className="input"
